@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Standalone versie: alles in dit ene bestand. Gegenereerd uit index.html + css/ + js/. -->
+  <title>ImpactHub — het netwerk voor de goede-doelensector</title>
+  <meta name="description" content="ImpactHub is het professionele netwerk voor fondsenwervers en iedereen die werkt voor goede doelen. Deel kennis, vind vacatures en bouw je netwerk." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230e7c66'/><text x='50' y='70' font-size='62' text-anchor='middle' fill='white'>✦</text></svg>" />
+  <style>
+/* ImpactHub — styles.css
+   Een verzorgde, lichte interface voor de goede-doelensector.
+   Warm teal/groen als hoofdkleur om het te onderscheiden van LinkedIn-blauw. */
+
+:root {
+  --green: #0e7c66;
+  --green-dark: #0a5e4d;
+  --green-soft: #e6f4f0;
+  --ink: #1d2b27;
+  --muted: #5d6b66;
+  --line: #e3e8e6;
+  --bg: #f1f4f3;
+  --card: #ffffff;
+  --shadow: 0 1px 2px rgba(16, 40, 34, .06), 0 4px 14px rgba(16, 40, 34, .05);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: none; }
+.muted { color: var(--muted); }
+
+/* ---------- Avatar ---------- */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--c, #0e7c66);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .3px;
+  flex: 0 0 auto;
+  user-select: none;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  white-space: nowrap;
+  background: #eef1f0;
+  color: var(--ink);
+}
+.btn:hover { background: #e4e9e7; }
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green-dark); }
+.btn-ghost { background: transparent; border-color: #c7d2ce; color: var(--green-dark); }
+.btn-ghost:hover { background: var(--green-soft); }
+
+/* ---------- Topbalk ---------- */
+#nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(16, 40, 34, .04);
+}
+.nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 20px;
+  height: 58px;
+}
+.brand { display: flex; align-items: center; gap: 8px; }
+.brand-mark {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--green), #1aa789);
+  color: #fff; display: grid; place-items: center; font-size: 19px;
+}
+.brand-name { font-size: 19px; font-weight: 600; color: var(--green-dark); letter-spacing: -.3px; }
+.brand-name b { font-weight: 800; color: var(--ink); }
+
+.search { flex: 1; max-width: 360px; }
+.search input {
+  width: 100%; border: 1px solid var(--line); background: #f4f7f6;
+  border-radius: 999px; padding: 9px 16px; font-size: 14px; outline: none;
+}
+.search input:focus { border-color: var(--green); background: #fff; }
+
+.nav-links { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 12px; border-radius: 10px; color: var(--muted);
+  font-size: 11px; font-weight: 600; min-width: 56px;
+  border-bottom: 2px solid transparent;
+}
+.nav-item:hover { color: var(--ink); background: #f4f7f6; }
+.nav-item.active { color: var(--green-dark); }
+.nav-ico { font-size: 19px; line-height: 1; }
+.nav-ava { display: flex; }
+
+/* ---------- Layout ---------- */
+#main { max-width: 1180px; margin: 22px auto; padding: 0 20px; }
+.layout-3 {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 280px;
+  gap: 22px;
+  align-items: start;
+}
+.layout-1 { max-width: 720px; margin: 0 auto; }
+.col-left, .col-right { position: sticky; top: 78px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Linker profielkaart ---------- */
+.profile-card { padding-bottom: 16px; overflow: hidden; text-align: center; }
+.pc-cover { height: 56px; background: linear-gradient(135deg, var(--c), #1aa789); }
+.pc-ava { display: block; margin: -36px auto 6px; width: 72px; }
+.pc-ava .avatar { border: 3px solid #fff; }
+.pc-name { display: block; font-weight: 700; font-size: 16px; padding: 0 12px; }
+.pc-name:hover { color: var(--green-dark); }
+.pc-head { color: var(--muted); font-size: 13px; padding: 2px 14px 0; }
+.pc-org { color: var(--muted); font-size: 12px; margin-top: 6px; }
+.pc-stats { display: flex; justify-content: center; gap: 18px; margin: 14px 0 4px; padding: 12px 8px 0; border-top: 1px solid var(--line); }
+.pc-stats a { font-size: 12px; color: var(--muted); }
+.pc-stats a span { display: block; font-weight: 800; font-size: 16px; color: var(--green-dark); }
+.pc-stats a:hover span { color: var(--green); }
+.pc-badge { display: inline-block; margin-top: 12px; background: var(--green-soft); color: var(--green-dark); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 999px; }
+.pc-badge.sm { font-size: 11px; padding: 3px 10px; margin: 6px 0 0; }
+.pc-badge-spacer { height: 23px; }
+
+/* ---------- Rechter kolom ---------- */
+.rail { display: flex; flex-direction: column; gap: 16px; }
+.rail-card { padding: 16px; }
+.rail-card h3 { margin: 0 0 10px; font-size: 14px; }
+.rail-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.rail-list li { display: flex; flex-direction: column; }
+.rail-list li a { font-weight: 600; font-size: 13px; }
+.rail-list li a:hover { color: var(--green-dark); }
+.rail-list li span { font-size: 12px; color: var(--muted); }
+.rail-list.causes li { flex-direction: row; justify-content: space-between; align-items: baseline; }
+.rail-more { display: inline-block; margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--green-dark); }
+.rail-foot { font-size: 12px; color: var(--muted); text-align: center; line-height: 1.7; padding: 4px; }
+
+/* ---------- Composer ---------- */
+.composer { padding: 14px 16px; margin-bottom: 16px; }
+.composer-top { display: flex; gap: 12px; align-items: flex-start; }
+.composer-top textarea {
+  flex: 1; border: 1px solid var(--line); border-radius: 12px;
+  padding: 11px 14px; font: inherit; resize: none; outline: none;
+  min-height: 46px; background: #f8faf9;
+}
+.composer-top textarea:focus { border-color: var(--green); background: #fff; }
+.composer-bar { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+.composer-bar input {
+  flex: 1; border: 1px solid var(--line); border-radius: 999px;
+  padding: 7px 14px; font-size: 13px; outline: none;
+}
+.composer-bar input:focus { border-color: var(--green); }
+
+/* ---------- Posts ---------- */
+.post { padding: 16px; margin-bottom: 16px; }
+.post-head { display: flex; gap: 12px; align-items: flex-start; }
+.post-meta { flex: 1; min-width: 0; }
+.post-name { font-weight: 700; font-size: 15px; }
+.post-name:hover { color: var(--green-dark); }
+.post-sub { font-size: 12px; color: var(--muted); }
+.post-time { font-size: 12px; color: var(--muted); }
+.post-del { border: none; background: none; color: var(--muted); cursor: pointer; font-size: 15px; padding: 4px 8px; border-radius: 8px; }
+.post-del:hover { background: #fbeaea; color: #c0392b; }
+.post-text { margin: 12px 0 0; white-space: pre-wrap; word-wrap: break-word; }
+.post-tags { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { color: var(--green-dark); font-size: 13px; font-weight: 600; }
+.post-counts { display: flex; gap: 14px; color: var(--muted); font-size: 12px; margin: 12px 0 8px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.post-actions { display: flex; gap: 6px; }
+.act {
+  flex: 1; border: none; background: none; cursor: pointer;
+  padding: 8px; border-radius: 8px; font-size: 14px; font-weight: 600; color: var(--muted);
+}
+.act:hover { background: #f4f7f6; color: var(--ink); }
+.act.liked { color: #c0392b; }
+
+.post-comments { margin-top: 8px; display: flex; flex-direction: column; gap: 10px; }
+.post-comments:empty { margin: 0; }
+.comment { display: flex; gap: 10px; align-items: flex-start; margin-top: 8px; }
+.comment-body { background: #f4f7f6; border-radius: 12px; padding: 8px 12px; flex: 1; }
+.comment-name { font-weight: 700; font-size: 13px; }
+.comment-time { font-size: 11px; color: var(--muted); margin-left: 8px; }
+.comment-body p { margin: 2px 0 0; font-size: 14px; }
+.comment-add { display: flex; gap: 10px; align-items: center; margin-top: 12px; }
+.comment-input {
+  flex: 1; border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 14px; font-size: 14px; outline: none; background: #f8faf9;
+}
+.comment-input:focus { border-color: var(--green); background: #fff; }
+
+/* ---------- Page heads ---------- */
+.page-head { margin-bottom: 18px; }
+.page-head h1 { margin: 0; font-size: 24px; }
+.page-head p { margin: 4px 0 0; color: var(--muted); }
+.profile-section-title h2, .net-section h2 { font-size: 16px; margin: 6px 0 12px; }
+
+/* ---------- Netwerk ---------- */
+.net-section { margin-bottom: 28px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; }
+.person { padding-bottom: 16px; overflow: hidden; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.person-cover { height: 54px; width: 100%; background: linear-gradient(135deg, var(--c), #1aa789); }
+.person-ava { margin-top: -34px; }
+.person-ava .avatar { border: 3px solid #fff; }
+.person-name { font-weight: 700; margin-top: 8px; padding: 0 10px; }
+.person-name:hover { color: var(--green-dark); }
+.person-head { font-size: 12px; color: var(--muted); padding: 2px 12px; min-height: 32px; }
+.person-loc { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+.person .btn { margin-top: 8px; }
+
+/* ---------- Vacatures ---------- */
+.jobs { display: flex; flex-direction: column; gap: 14px; }
+.job { padding: 16px; display: flex; gap: 14px; }
+.job-logo {
+  width: 52px; height: 52px; border-radius: 12px; flex: 0 0 auto;
+  background: var(--c); color: #fff; display: grid; place-items: center;
+  font-weight: 800; font-size: 18px;
+}
+.job-body { flex: 1; min-width: 0; }
+.job-body h3 { margin: 0; font-size: 17px; }
+.job-org { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.job-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+.chip { background: var(--green-soft); color: var(--green-dark); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.job-desc { margin: 0 0 12px; color: #38463f; }
+.job-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+/* ---------- Events ---------- */
+.events { display: flex; flex-direction: column; gap: 14px; }
+.event { padding: 14px 16px; display: flex; align-items: center; gap: 16px; }
+.event-date {
+  flex: 0 0 auto; width: 58px; height: 58px; border-radius: 12px;
+  background: var(--green-soft); color: var(--green-dark);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.ed-day { font-size: 22px; font-weight: 800; line-height: 1; }
+.ed-mon { font-size: 12px; text-transform: uppercase; font-weight: 600; }
+.event-body { flex: 1; min-width: 0; }
+.event-body h3 { margin: 0; font-size: 16px; }
+.event-org { font-size: 13px; color: var(--muted); }
+.event-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+/* ---------- Profielpagina ---------- */
+.profile-view > * { margin-bottom: 16px; }
+.profile-hero { overflow: hidden; }
+.hero-cover { height: 120px; background: linear-gradient(135deg, var(--c), #1aa789); }
+.hero-row { display: flex; align-items: flex-end; justify-content: space-between; padding: 0 22px; }
+.hero-ava { margin-top: -60px; }
+.hero-ava .avatar { border: 4px solid #fff; }
+.hero-actions { padding-bottom: 14px; }
+.hero-name { margin: 12px 22px 0; font-size: 24px; }
+.otw { font-size: 14px; font-weight: 500; color: var(--green-dark); }
+.hero-head { margin: 4px 22px 0; }
+.hero-meta { margin: 8px 22px 18px; color: var(--muted); font-size: 13px; }
+.profile-section { padding: 18px 22px; }
+.profile-section h2 { margin: 0 0 10px; font-size: 17px; }
+.about { white-space: pre-wrap; margin: 0; }
+.skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill { background: #eef3f1; border: 1px solid var(--line); color: var(--ink); font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 999px; }
+.empty { padding: 22px; text-align: center; color: var(--muted); }
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(16, 30, 26, .55);
+  display: grid; place-items: center; z-index: 100; padding: 20px;
+}
+.modal { background: #fff; border-radius: 16px; width: 100%; max-width: 460px; max-height: 90vh; overflow: auto; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.modal-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.modal-head h2 { margin: 0; font-size: 18px; }
+.modal-x { border: none; background: none; font-size: 18px; cursor: pointer; color: var(--muted); padding: 4px 8px; border-radius: 8px; }
+.modal-x:hover { background: #f4f7f6; }
+.modal-body { padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+.modal-body label { display: flex; flex-direction: column; gap: 5px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.modal-body input[type=text], .modal-body textarea {
+  border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px;
+  font: inherit; color: var(--ink); outline: none; resize: vertical;
+}
+.modal-body input:focus, .modal-body textarea:focus { border-color: var(--green); }
+.modal-body .check { flex-direction: row; align-items: center; gap: 8px; color: var(--ink); }
+.modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 20px; border-top: 1px solid var(--line); }
+
+/* ---------- Footer reset ---------- */
+.app-foot { text-align: center; padding: 30px 20px 50px; color: var(--muted); font-size: 12px; }
+.app-foot button { background: none; border: none; color: var(--green-dark); cursor: pointer; font: inherit; text-decoration: underline; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .layout-3 { grid-template-columns: minmax(0, 1fr); }
+  .col-left, .col-right { display: none; }
+}
+@media (max-width: 640px) {
+  .nav-lbl { display: none; }
+  .search { display: none; }
+  .nav-item { min-width: 44px; padding: 6px 8px; }
+  .nav-inner { gap: 8px; }
+  #main { padding: 0 12px; margin-top: 14px; }
+  .hero-name { font-size: 20px; }
+}
+
+</style>
+</head>
+<body>
+  <header id="nav"><!-- topbalk, gevuld door app.js --></header>
+  <main id="main"><!-- view, gevuld door app.js --></main>
+  <footer class="app-foot">
+    ImpactHub · een werkend prototype · alle data staat lokaal in je browser ·
+    <button onclick="ImpactHubReset()">voorbeeld-data resetten</button>
+  </footer>
+
+<script>
+// data.js — Voorbeeld-data voor het ImpactHub-prototype.
+// Alles is fictief en bedoeld om de app te laten leven. De echte app zou
+// deze data uit een database halen. Hier zit het in het geheugen en wordt
+// (waar nodig) opgeslagen in localStorage via store.js.
+
+window.SEED = {
+  // De ingelogde gebruiker. In dit prototype "ben jij" deze persoon.
+  // Je kunt het profiel aanpassen; wijzigingen worden bewaard in je browser.
+  currentUserId: 'u-me',
+
+  users: [
+    {
+      id: 'u-me',
+      name: 'Jij',
+      headline: 'Fondsenwerver · op zoek naar nieuwe impact',
+      role: 'Fondsenwerver',
+      org: '',
+      location: 'Nederland',
+      color: '#0e7c66',
+      about: 'Welkom op ImpactHub! Pas dit profiel aan via de knop "Profiel bewerken". Vertel kort wie je bent, voor welk doel je je hard maakt en waar je goed in bent.',
+      skills: ['Fondsenwerving', 'Donateurbinding', 'Storytelling'],
+      openToWork: true,
+      connectionIds: ['u-2', 'u-4', 'u-7'],
+    },
+    {
+      id: 'u-2',
+      name: 'Saskia de Vries',
+      headline: 'Hoofd Fondsenwerving bij Natuur & Co',
+      role: 'Hoofd Fondsenwerving',
+      org: 'Natuur & Co',
+      location: 'Utrecht',
+      color: '#2563eb',
+      about: 'Al 12 jaar bouw ik aan duurzame donateurrelaties. Specialist in grote giften (major donors) en nalatenschappen. Altijd in voor een goed gesprek over de toekomst van geven.',
+      skills: ['Major Donors', 'Nalatenschappen', 'Relatiebeheer', 'Strategie'],
+      openToWork: false,
+      connectionIds: ['u-me', 'u-3', 'u-5', 'u-8'],
+    },
+    {
+      id: 'u-3',
+      name: 'Mehmet Yilmaz',
+      headline: 'Campagneleider bij Stichting Schoon Water',
+      role: 'Campagneleider',
+      org: 'Stichting Schoon Water',
+      location: 'Rotterdam',
+      color: '#db2777',
+      about: 'Ik vertaal complexe thema’s naar campagnes die mensen raken én aanzetten tot actie. Trots op onze laatste actie die 4.300 nieuwe donateurs opleverde.',
+      skills: ['Campagnemanagement', 'Social Media', 'Mobilisatie', 'Copywriting'],
+      openToWork: false,
+      connectionIds: ['u-2', 'u-6'],
+    },
+    {
+      id: 'u-4',
+      name: 'Anouk Bakker',
+      headline: 'Vrijwilligerscoördinator bij Buurtkracht',
+      role: 'Vrijwilligerscoördinator',
+      org: 'Buurtkracht',
+      location: 'Groningen',
+      color: '#ea580c',
+      about: 'Vrijwilligers zijn het kloppend hart van elke goede-doelenorganisatie. Ik werf, begeleid en behoud ze met plezier. Warme overdracht boven alles.',
+      skills: ['Vrijwilligersbeleid', 'Werving', 'Training', 'Community'],
+      openToWork: false,
+      connectionIds: ['u-me', 'u-7'],
+    },
+    {
+      id: 'u-5',
+      name: 'Tomás Oliveira',
+      headline: 'Directeur bij Kind Centraal',
+      role: 'Directeur',
+      org: 'Kind Centraal',
+      location: 'Den Haag',
+      color: '#7c3aed',
+      about: 'Bestuurder met hart voor kinderrechten. Ik geloof in transparantie, meetbare impact en het lef om dingen anders te doen. We zoeken altijd talent dat dat deelt.',
+      skills: ['Leiderschap', 'Governance', 'Impactmeting', 'Pleitbezorging'],
+      openToWork: false,
+      connectionIds: ['u-2', 'u-8'],
+    },
+    {
+      id: 'u-6',
+      name: 'Linda Janssen',
+      headline: 'Grant Writer & Subsidie-expert',
+      role: 'Grant Writer',
+      org: 'Freelance',
+      location: 'Eindhoven',
+      color: '#0891b2',
+      about: 'Ik schrijf winnende subsidieaanvragen voor goede doelen. Vorig jaar samen €1,2 mln aan fondsen opgehaald voor cliënten. Open voor nieuwe opdrachten.',
+      skills: ['Subsidieaanvragen', 'Vermogensfondsen', 'Rapportage', 'Budgettering'],
+      openToWork: true,
+      connectionIds: ['u-3'],
+    },
+    {
+      id: 'u-7',
+      name: 'David Okafor',
+      headline: 'Donor Relations Officer bij Hoop Wereldwijd',
+      role: 'Donor Relations',
+      org: 'Hoop Wereldwijd',
+      location: 'Amsterdam',
+      color: '#16a34a',
+      about: 'Elke donateur verdient een persoonlijk bedankje. Ik bouw aan loyaliteitsprogramma’s die geven leuk maken. Fan van data én van een handgeschreven kaartje.',
+      skills: ['Donateurbinding', 'CRM', 'E-mailmarketing', 'Loyaliteit'],
+      openToWork: false,
+      connectionIds: ['u-me', 'u-4'],
+    },
+    {
+      id: 'u-8',
+      name: 'Fatima El Amrani',
+      headline: 'Manager Corporate Partnerships bij GroenDoel',
+      role: 'Partnership Manager',
+      org: 'GroenDoel',
+      location: 'Utrecht',
+      color: '#ca8a04',
+      about: 'Ik koppel bedrijven aan maatschappelijke doelen waar ze écht warm voor lopen. Win-win-partnerschappen met langetermijnimpact zijn mijn handelsmerk.',
+      skills: ['Bedrijfspartnerschappen', 'Sponsoring', 'Onderhandelen', 'MVO'],
+      openToWork: false,
+      connectionIds: ['u-2', 'u-5'],
+    },
+  ],
+
+  posts: [
+    {
+      id: 'p-1',
+      authorId: 'u-3',
+      time: Date.now() - 1000 * 60 * 60 * 2,
+      text: 'We hebben het geflikt! 🎉 Onze "Druppel voor Druppel"-campagne haalde in zes weken 4.300 nieuwe maandelijkse donateurs binnen. Drie lessen: 1) één helder verhaal verslaat tien losse feiten, 2) laat de doelgroep zelf aan het woord, 3) bedank sneller dan je gewend bent. Trots op het hele team. 💧',
+      tags: ['campagne', 'fondsenwerving'],
+      likedBy: ['u-2', 'u-7', 'u-8'],
+      comments: [
+        { id: 'c-1', authorId: 'u-2', time: Date.now() - 1000 * 60 * 90, text: 'Gefeliciteerd! Dat bedank-punt onderschatten zoveel organisaties.' },
+      ],
+    },
+    {
+      id: 'p-2',
+      authorId: 'u-6',
+      time: Date.now() - 1000 * 60 * 60 * 6,
+      text: 'Subsidie-tip van de week: begin je aanvraag nooit met je organisatie, maar met het probleem dat de fondsverstrekker wil oplossen. Spiegel hun taal, hun doelen, hun jaarverslag. Je aanvraag moet voelen als het antwoord op hún vraag. Werkt elke keer weer. 📝',
+      tags: ['subsidie', 'tip'],
+      likedBy: ['u-2', 'u-3', 'u-5'],
+      comments: [],
+    },
+    {
+      id: 'p-3',
+      authorId: 'u-5',
+      time: Date.now() - 1000 * 60 * 60 * 26,
+      text: 'Vandaag publiceerden we ons impactrapport. Geen mooie verhalen zonder cijfers, geen cijfers zonder de verhalen erachter. 18.000 kinderen bereikt, en we laten precies zien hoe. Transparantie is geen marketing — het is respect voor wie ons mogelijk maakt. Link in de comments.',
+      tags: ['impact', 'transparantie'],
+      likedBy: ['u-2', 'u-8'],
+      comments: [
+        { id: 'c-2', authorId: 'u-8', time: Date.now() - 1000 * 60 * 60 * 25, text: 'Hier kunnen veel organisaties van leren. Petje af.' },
+      ],
+    },
+    {
+      id: 'p-4',
+      authorId: 'u-4',
+      time: Date.now() - 1000 * 60 * 60 * 48,
+      text: 'Op zoek naar 15 vrijwilligers voor onze najaarsactie in Groningen. 🙌 Geen ervaring nodig, wél een warm hart en twee handen. Ken jij iemand? Tag diegene hieronder. Samen krijgen we de buurt in beweging.',
+      tags: ['vrijwilligers', 'werving'],
+      likedBy: ['u-7'],
+      comments: [],
+    },
+  ],
+
+  jobs: [
+    {
+      id: 'j-1',
+      title: 'Senior Fondsenwerver Particulieren',
+      org: 'Natuur & Co',
+      location: 'Utrecht (hybride)',
+      type: 'Fulltime',
+      category: 'Fondsenwerving',
+      posted: Date.now() - 1000 * 60 * 60 * 20,
+      salary: '€3.800 – €4.600 p/m',
+      description: 'Jij bouwt aan langdurige relaties met onze particuliere donateurs en major donors. Ervaring met nalatenschappen is een pré. Je werkt nauw samen met campagne en data.',
+    },
+    {
+      id: 'j-2',
+      title: 'Campagnemedewerker Digitaal',
+      org: 'Stichting Schoon Water',
+      location: 'Rotterdam',
+      type: 'Fulltime',
+      category: 'Campagne',
+      posted: Date.now() - 1000 * 60 * 60 * 50,
+      salary: '€3.100 – €3.700 p/m',
+      description: 'Van concept tot conversie: jij zet online campagnes neer die mensen in beweging brengen. Je kent je weg in social ads, e-mailflows en A/B-testen.',
+    },
+    {
+      id: 'j-3',
+      title: 'Coördinator Vrijwilligers',
+      org: 'Buurtkracht',
+      location: 'Groningen',
+      type: 'Parttime (24u)',
+      category: 'Vrijwilligers',
+      posted: Date.now() - 1000 * 60 * 60 * 72,
+      salary: '€2.900 – €3.300 p/m (o.b.v. fulltime)',
+      description: 'Werf, begeleid en behoud onze groeiende groep vrijwilligers. Jij bent het warme gezicht van de organisatie en zorgt dat iedereen op de juiste plek schittert.',
+    },
+    {
+      id: 'j-4',
+      title: 'Grant Writer (freelance opdracht)',
+      org: 'Kind Centraal',
+      location: 'Remote',
+      type: 'Freelance',
+      category: 'Subsidies',
+      posted: Date.now() - 1000 * 60 * 60 * 5,
+      salary: 'In overleg',
+      description: 'We zoeken een ervaren schrijver voor drie grote subsidieaanvragen dit kwartaal. Aantoonbaar succes bij vermogensfondsen is een harde eis.',
+    },
+    {
+      id: 'j-5',
+      title: 'Manager Corporate Partnerships',
+      org: 'GroenDoel',
+      location: 'Utrecht (hybride)',
+      type: 'Fulltime',
+      category: 'Partnerschappen',
+      posted: Date.now() - 1000 * 60 * 60 * 96,
+      salary: '€4.200 – €5.200 p/m',
+      description: 'Jij smeedt strategische allianties met bedrijven die onze missie willen versterken. Commercieel inzicht én een hart voor de zaak gaan bij jou hand in hand.',
+    },
+  ],
+
+  events: [
+    {
+      id: 'e-1',
+      title: 'Nationale Dag van de Fondsenwerving',
+      date: '2026-06-18',
+      org: 'Goede Doelen Nederland',
+      location: 'Spant! Bussum',
+      attendees: 240,
+    },
+    {
+      id: 'e-2',
+      title: 'Webinar: Nalatenschappen voor beginners',
+      date: '2026-06-05',
+      org: 'Natuur & Co Academy',
+      location: 'Online',
+      attendees: 96,
+    },
+    {
+      id: 'e-3',
+      title: 'Meetup Vrijwilligerscoördinatoren Noord',
+      date: '2026-06-12',
+      org: 'Buurtkracht',
+      location: 'Groningen',
+      attendees: 38,
+    },
+  ],
+
+  // Thema's / goede doelen die "trending" zijn — voor de rechterkolom.
+  causes: [
+    { tag: 'Klimaat & Natuur', count: 1280 },
+    { tag: 'Kinderrechten', count: 940 },
+    { tag: 'Armoedebestrijding', count: 870 },
+    { tag: 'Gezondheid', count: 760 },
+    { tag: 'Dierenwelzijn', count: 610 },
+  ],
+};
+
+// store.js — Eenvoudige state-laag voor het ImpactHub-prototype.
+// Houdt de app-state vast en bewaart wijzigingen in localStorage, zodat
+// posts, likes en profielwijzigingen blijven staan als je de pagina herlaadt.
+
+window.Store = (function () {
+  const KEY = 'impacthub_state_v1';
+
+  // Diepe kopie van de seed, zodat we de originele data niet vervuilen.
+  function freshState() {
+    return JSON.parse(JSON.stringify(window.SEED));
+  }
+
+  let state = load();
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {
+      console.warn('Kon opgeslagen state niet laden, start vers.', e);
+    }
+    return freshState();
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (e) {
+      console.warn('Kon state niet opslaan.', e);
+    }
+  }
+
+  // Abonnees worden geroepen na elke wijziging, zodat de UI hertekent.
+  const listeners = [];
+  function subscribe(fn) { listeners.push(fn); }
+  function emit() { save(); listeners.forEach((fn) => fn()); }
+
+  // ---- Lezers ----
+  function getState() { return state; }
+  function me() { return state.users.find((u) => u.id === state.currentUserId); }
+  function user(id) { return state.users.find((u) => u.id === id); }
+  function isConnected(id) {
+    const m = me();
+    return m.connectionIds.includes(id);
+  }
+
+  // Mensen die je nog niet kent — voor "Misschien ken je".
+  function suggestions(limit = 3) {
+    const m = me();
+    return state.users
+      .filter((u) => u.id !== m.id && !m.connectionIds.includes(u.id))
+      .slice(0, limit);
+  }
+
+  // Posts gesorteerd op nieuwste eerst.
+  function feed() {
+    return [...state.posts].sort((a, b) => b.time - a.time);
+  }
+
+  // ---- Schrijvers ----
+  function addPost(text, tags) {
+    state.posts.push({
+      id: 'p-' + Date.now(),
+      authorId: state.currentUserId,
+      time: Date.now(),
+      text: text.trim(),
+      tags: tags || [],
+      likedBy: [],
+      comments: [],
+    });
+    emit();
+  }
+
+  function deletePost(postId) {
+    state.posts = state.posts.filter((p) => p.id !== postId);
+    emit();
+  }
+
+  function toggleLike(postId) {
+    const post = state.posts.find((p) => p.id === postId);
+    if (!post) return;
+    const me = state.currentUserId;
+    const i = post.likedBy.indexOf(me);
+    if (i === -1) post.likedBy.push(me);
+    else post.likedBy.splice(i, 1);
+    emit();
+  }
+
+  function addComment(postId, text) {
+    const post = state.posts.find((p) => p.id === postId);
+    if (!post || !text.trim()) return;
+    post.comments.push({
+      id: 'c-' + Date.now(),
+      authorId: state.currentUserId,
+      time: Date.now(),
+      text: text.trim(),
+    });
+    emit();
+  }
+
+  function toggleConnection(userId) {
+    const m = me();
+    const i = m.connectionIds.indexOf(userId);
+    if (i === -1) m.connectionIds.push(userId);
+    else m.connectionIds.splice(i, 1);
+    emit();
+  }
+
+  function updateProfile(fields) {
+    const m = me();
+    Object.assign(m, fields);
+    emit();
+  }
+
+  // Sollicitaties / aanmeldingen — alleen lokaal bijgehouden voor de demo.
+  function toggleJobApplied(jobId) {
+    state.appliedJobs = state.appliedJobs || [];
+    const i = state.appliedJobs.indexOf(jobId);
+    if (i === -1) state.appliedJobs.push(jobId);
+    else state.appliedJobs.splice(i, 1);
+    emit();
+  }
+  function hasApplied(jobId) {
+    return (state.appliedJobs || []).includes(jobId);
+  }
+
+  function toggleEventGoing(eventId) {
+    state.goingEvents = state.goingEvents || [];
+    const i = state.goingEvents.indexOf(eventId);
+    if (i === -1) state.goingEvents.push(eventId);
+    else state.goingEvents.splice(i, 1);
+    emit();
+  }
+  function isGoing(eventId) {
+    return (state.goingEvents || []).includes(eventId);
+  }
+
+  function reset() {
+    state = freshState();
+    emit();
+  }
+
+  return {
+    subscribe, getState, me, user, isConnected, suggestions, feed,
+    addPost, deletePost, toggleLike, addComment, toggleConnection,
+    updateProfile, toggleJobApplied, hasApplied, toggleEventGoing, isGoing,
+    reset,
+  };
+})();
+
+// app.js — UI, routing en interacties voor het ImpactHub-prototype.
+// Pure vanilla JS, geen build-stap. We tekenen telkens de hele view opnieuw
+// op basis van de huidige hash-route en de state uit store.js.
+
+(function () {
+  'use strict';
+  const S = window.Store;
+
+  // ---------- Kleine helpers ----------
+  const $ = (sel, root = document) => root.querySelector(sel);
+
+  // Veilig tekst tonen (voorkomt dat HTML uit input wordt uitgevoerd).
+  function esc(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  // Initialen voor de avatar-cirkel.
+  function initials(name) {
+    return name.trim().split(/\s+/).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+  }
+
+  function avatar(user, size = 48) {
+    const fs = Math.round(size * 0.4);
+    return `<span class="avatar" style="--c:${user.color};width:${size}px;height:${size}px;font-size:${fs}px"
+      title="${esc(user.name)}">${esc(initials(user.name))}</span>`;
+  }
+
+  // "3 uur geleden" e.d.
+  function ago(ts) {
+    const s = Math.floor((Date.now() - ts) / 1000);
+    if (s < 60) return 'zojuist';
+    const m = Math.floor(s / 60);
+    if (m < 60) return m + ' min geleden';
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + ' uur geleden';
+    const d = Math.floor(h / 24);
+    if (d < 7) return d + ' dag' + (d > 1 ? 'en' : '') + ' geleden';
+    const w = Math.floor(d / 7);
+    return w + ' week' + (w > 1 ? 'en' : '') + ' geleden';
+  }
+
+  function dateNL(iso) {
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric', month: 'long' });
+  }
+
+  // ---------- Routing ----------
+  function currentRoute() {
+    const hash = location.hash.replace(/^#\/?/, '') || 'home';
+    const [name, param] = hash.split('/');
+    return { name, param };
+  }
+
+  const routes = {
+    home: viewHome,
+    network: viewNetwork,
+    jobs: viewJobs,
+    events: viewEvents,
+    profile: viewProfile,
+  };
+
+  function render() {
+    const me = S.me();
+    renderNav(me);
+    const { name, param } = currentRoute();
+    const view = routes[name] || viewHome;
+    $('#main').innerHTML = view(param);
+    window.scrollTo(0, 0);
+  }
+
+  // ---------- Topbalk ----------
+  function navItem(route, icon, label) {
+    const active = currentRoute().name === route ? 'active' : '';
+    return `<a class="nav-item ${active}" href="#/${route}">
+      <span class="nav-ico">${icon}</span><span class="nav-lbl">${label}</span></a>`;
+  }
+
+  function renderNav(me) {
+    $('#nav').innerHTML = `
+      <div class="nav-inner">
+        <a class="brand" href="#/home" aria-label="ImpactHub home">
+          <span class="brand-mark">✦</span><span class="brand-name">Impact<b>Hub</b></span>
+        </a>
+        <div class="search">
+          <input type="search" placeholder="Zoek mensen, doelen of vacatures…" aria-label="Zoeken" />
+        </div>
+        <nav class="nav-links">
+          ${navItem('home', '🏠', 'Home')}
+          ${navItem('network', '👥', 'Netwerk')}
+          ${navItem('jobs', '💼', 'Vacatures')}
+          ${navItem('events', '📅', 'Events')}
+          <a class="nav-item ${currentRoute().name === 'profile' && !currentRoute().param ? 'active' : ''}" href="#/profile">
+            <span class="nav-ico nav-ava">${avatar(me, 26)}</span><span class="nav-lbl">Profiel</span>
+          </a>
+        </nav>
+      </div>`;
+  }
+
+  // ---------- Linker profielkaart ----------
+  function profileCard() {
+    const me = S.me();
+    const conns = me.connectionIds.length;
+    return `<aside class="card profile-card">
+      <div class="pc-cover" style="--c:${me.color}"></div>
+      <a href="#/profile" class="pc-ava">${avatar(me, 72)}</a>
+      <a href="#/profile" class="pc-name">${esc(me.name)}</a>
+      <div class="pc-head">${esc(me.headline)}</div>
+      ${me.org ? `<div class="pc-org">📍 ${esc(me.org)} · ${esc(me.location)}</div>` : `<div class="pc-org">📍 ${esc(me.location)}</div>`}
+      <div class="pc-stats">
+        <a href="#/network"><span>${conns}</span> connecties</a>
+        <a href="#/profile"><span>${me.skills.length}</span> vaardigheden</a>
+      </div>
+      ${me.openToWork ? '<div class="pc-badge">🟢 Open voor werk</div>' : ''}
+    </aside>`;
+  }
+
+  // ---------- Rechter kolom ----------
+  function rightRail() {
+    const st = S.getState();
+    const causes = st.causes.map((c) =>
+      `<li><a href="#/home"># ${esc(c.tag)}</a><span>${c.count.toLocaleString('nl-NL')} actief</span></li>`).join('');
+    const evs = st.events.slice(0, 2).map((e) =>
+      `<li><a href="#/events"><b>${esc(e.title)}</b></a><span>${dateNL(e.date)} · ${esc(e.location)}</span></li>`).join('');
+    return `<aside class="rail">
+      <div class="card rail-card">
+        <h3>Doelen in beweging</h3>
+        <ul class="rail-list causes">${causes}</ul>
+      </div>
+      <div class="card rail-card">
+        <h3>Binnenkort</h3>
+        <ul class="rail-list">${evs}</ul>
+        <a class="rail-more" href="#/events">Alle events →</a>
+      </div>
+      <div class="rail-foot">
+        ImpactHub · prototype<br>Het netwerk voor de goede-doelensector
+      </div>
+    </aside>`;
+  }
+
+  // ---------- HOME / feed ----------
+  function postComposer() {
+    const me = S.me();
+    return `<div class="card composer">
+      <div class="composer-top">
+        ${avatar(me, 48)}
+        <textarea id="composer-text" rows="1" placeholder="Deel een succes, een tip of een vraag met de sector…"></textarea>
+      </div>
+      <div class="composer-bar">
+        <input id="composer-tags" type="text" placeholder="tags, komma-gescheiden (bijv. campagne, tip)" />
+        <button class="btn btn-primary" id="composer-post">Plaatsen</button>
+      </div>
+    </div>`;
+  }
+
+  function commentHtml(c) {
+    const u = S.user(c.authorId);
+    return `<div class="comment">
+      ${avatar(u, 32)}
+      <div class="comment-body">
+        <a class="comment-name" href="#/profile/${u.id}">${esc(u.name)}</a>
+        <span class="comment-time">${ago(c.time)}</span>
+        <p>${esc(c.text)}</p>
+      </div>
+    </div>`;
+  }
+
+  function postHtml(p) {
+    const u = S.user(p.authorId);
+    const me = S.me();
+    const liked = p.likedBy.includes(me.id);
+    const tags = (p.tags || []).map((t) => `<span class="tag">#${esc(t)}</span>`).join('');
+    const comments = p.comments.map(commentHtml).join('');
+    const mine = p.authorId === me.id;
+    return `<article class="card post" data-post="${p.id}">
+      <header class="post-head">
+        <a href="#/profile/${u.id}">${avatar(u, 48)}</a>
+        <div class="post-meta">
+          <a class="post-name" href="#/profile/${u.id}">${esc(u.name)}</a>
+          <div class="post-sub">${esc(u.headline)}</div>
+          <div class="post-time">${ago(p.time)}</div>
+        </div>
+        ${mine ? `<button class="post-del" data-del="${p.id}" title="Verwijderen" aria-label="Verwijderen">✕</button>` : ''}
+      </header>
+      <div class="post-text">${esc(p.text)}</div>
+      ${tags ? `<div class="post-tags">${tags}</div>` : ''}
+      <div class="post-counts">
+        <span>${p.likedBy.length} ❤</span><span>${p.comments.length} reacties</span>
+      </div>
+      <div class="post-actions">
+        <button class="act ${liked ? 'liked' : ''}" data-like="${p.id}">${liked ? '❤ Geliket' : '🤍 Like'}</button>
+        <button class="act" data-focus-comment="${p.id}">💬 Reageer</button>
+      </div>
+      <div class="post-comments">${comments}</div>
+      <div class="comment-add">
+        ${avatar(me, 32)}
+        <input type="text" class="comment-input" data-comment="${p.id}" placeholder="Schrijf een reactie…" />
+      </div>
+    </article>`;
+  }
+
+  function viewHome() {
+    const posts = S.feed().map(postHtml).join('');
+    return `<div class="layout layout-3">
+      <div class="col-left">${profileCard()}</div>
+      <div class="col-center">
+        ${postComposer()}
+        <div id="feed">${posts}</div>
+      </div>
+      <div class="col-right">${rightRail()}</div>
+    </div>`;
+  }
+
+  // ---------- NETWERK ----------
+  function personCard(u) {
+    const connected = S.isConnected(u.id);
+    return `<div class="card person">
+      <div class="person-cover" style="--c:${u.color}"></div>
+      <a href="#/profile/${u.id}" class="person-ava">${avatar(u, 64)}</a>
+      <a href="#/profile/${u.id}" class="person-name">${esc(u.name)}</a>
+      <div class="person-head">${esc(u.headline)}</div>
+      <div class="person-loc">📍 ${esc(u.location)}</div>
+      ${u.openToWork ? '<div class="pc-badge sm">🟢 Open voor werk</div>' : '<div class="pc-badge-spacer"></div>'}
+      <button class="btn ${connected ? 'btn-ghost' : 'btn-primary'}" data-connect="${u.id}">
+        ${connected ? '✓ Connectie' : '+ Verbinden'}
+      </button>
+    </div>`;
+  }
+
+  function viewNetwork() {
+    const st = S.getState();
+    const me = S.me();
+    const mine = me.connectionIds.map((id) => S.user(id)).filter(Boolean);
+    const others = st.users.filter((u) => u.id !== me.id && !me.connectionIds.includes(u.id));
+    return `<div class="layout layout-1">
+      <div class="page-head">
+        <h1>Jouw netwerk</h1>
+        <p>${mine.length} connecties in de goede-doelensector</p>
+      </div>
+      <section class="net-section">
+        <h2>Jouw connecties</h2>
+        <div class="grid">${mine.length ? mine.map(personCard).join('') : '<p class="muted">Nog geen connecties. Verbind met mensen hieronder!</p>'}</div>
+      </section>
+      <section class="net-section">
+        <h2>Misschien ken je…</h2>
+        <div class="grid">${others.map(personCard).join('')}</div>
+      </section>
+    </div>`;
+  }
+
+  // ---------- VACATURES ----------
+  function jobHtml(j) {
+    const applied = S.hasApplied(j.id);
+    return `<article class="card job">
+      <div class="job-logo" style="--c:${'#0e7c66'}">${esc(initials(j.org))}</div>
+      <div class="job-body">
+        <h3>${esc(j.title)}</h3>
+        <div class="job-org">${esc(j.org)} · ${esc(j.location)}</div>
+        <div class="job-tags">
+          <span class="chip">${esc(j.type)}</span>
+          <span class="chip">${esc(j.category)}</span>
+          <span class="chip">${esc(j.salary)}</span>
+        </div>
+        <p class="job-desc">${esc(j.description)}</p>
+        <div class="job-foot">
+          <span class="muted">Geplaatst ${ago(j.posted)}</span>
+          <button class="btn ${applied ? 'btn-ghost' : 'btn-primary'}" data-apply="${j.id}">
+            ${applied ? '✓ Gesolliciteerd' : 'Solliciteer'}
+          </button>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function viewJobs() {
+    const st = S.getState();
+    const jobs = st.jobs.map(jobHtml).join('');
+    return `<div class="layout layout-1">
+      <div class="page-head">
+        <h1>Vacatures in de sector</h1>
+        <p>${st.jobs.length} kansen bij goede doelen — van fondsenwerving tot vrijwilligerswerk</p>
+      </div>
+      <div class="jobs">${jobs}</div>
+    </div>`;
+  }
+
+  // ---------- EVENTS ----------
+  function eventHtml(e) {
+    const going = S.isGoing(e.id);
+    const d = new Date(e.date + 'T00:00:00');
+    return `<article class="card event">
+      <div class="event-date">
+        <span class="ed-day">${d.getDate()}</span>
+        <span class="ed-mon">${d.toLocaleDateString('nl-NL', { month: 'short' })}</span>
+      </div>
+      <div class="event-body">
+        <h3>${esc(e.title)}</h3>
+        <div class="event-org">${esc(e.org)}</div>
+        <div class="event-meta">📍 ${esc(e.location)} · 👥 ${e.attendees + (going ? 1 : 0)} aanmeldingen</div>
+      </div>
+      <button class="btn ${going ? 'btn-ghost' : 'btn-primary'}" data-going="${e.id}">
+        ${going ? '✓ Aangemeld' : 'Aanmelden'}
+      </button>
+    </article>`;
+  }
+
+  function viewEvents() {
+    const st = S.getState();
+    const evs = [...st.events].sort((a, b) => a.date.localeCompare(b.date)).map(eventHtml).join('');
+    return `<div class="layout layout-1">
+      <div class="page-head">
+        <h1>Events & bijeenkomsten</h1>
+        <p>Leer, netwerk en laat je inspireren met vakgenoten</p>
+      </div>
+      <div class="events">${evs}</div>
+    </div>`;
+  }
+
+  // ---------- PROFIEL ----------
+  function viewProfile(param) {
+    const me = S.me();
+    const u = param ? S.user(param) : me;
+    if (!u) return `<div class="layout layout-1"><div class="page-head"><h1>Profiel niet gevonden</h1></div></div>`;
+    const isMe = u.id === me.id;
+    const connected = !isMe && S.isConnected(u.id);
+    const skills = u.skills.map((s) => `<span class="skill">${esc(s)}</span>`).join('');
+    const userPosts = S.feed().filter((p) => p.authorId === u.id);
+    const postsHtml = userPosts.length
+      ? userPosts.map(postHtml).join('')
+      : `<div class="card empty">Nog geen berichten geplaatst.</div>`;
+
+    return `<div class="layout layout-1 profile-view">
+      <div class="card profile-hero">
+        <div class="hero-cover" style="--c:${u.color}"></div>
+        <div class="hero-row">
+          <div class="hero-ava">${avatar(u, 120)}</div>
+          <div class="hero-actions">
+            ${isMe
+              ? '<button class="btn btn-primary" id="edit-profile">Profiel bewerken</button>'
+              : `<button class="btn ${connected ? 'btn-ghost' : 'btn-primary'}" data-connect="${u.id}">${connected ? '✓ Connectie' : '+ Verbinden'}</button>`}
+          </div>
+        </div>
+        <h1 class="hero-name">${esc(u.name)} ${u.openToWork ? '<span class="otw">· open voor werk</span>' : ''}</h1>
+        <div class="hero-head">${esc(u.headline)}</div>
+        <div class="hero-meta">📍 ${esc(u.location)}${u.org ? ' · ' + esc(u.org) : ''} · ${u.connectionIds.length} connecties</div>
+      </div>
+
+      <div class="card profile-section">
+        <h2>Over</h2>
+        <p class="about">${esc(u.about)}</p>
+      </div>
+
+      <div class="card profile-section">
+        <h2>Vaardigheden</h2>
+        <div class="skills">${skills || '<span class="muted">Nog geen vaardigheden toegevoegd.</span>'}</div>
+      </div>
+
+      <div class="profile-section-title"><h2>Berichten van ${esc(u.name)}</h2></div>
+      ${postsHtml}
+    </div>`;
+  }
+
+  // ---------- Profiel bewerken (modal) ----------
+  function openEditModal() {
+    const me = S.me();
+    const wrap = document.createElement('div');
+    wrap.className = 'modal-backdrop';
+    wrap.innerHTML = `
+      <div class="modal" role="dialog" aria-modal="true">
+        <div class="modal-head"><h2>Profiel bewerken</h2><button class="modal-x" id="modal-close">✕</button></div>
+        <div class="modal-body">
+          <label>Naam<input id="f-name" type="text" value="${esc(me.name)}"></label>
+          <label>Functietitel (headline)<input id="f-head" type="text" value="${esc(me.headline)}"></label>
+          <label>Organisatie<input id="f-org" type="text" value="${esc(me.org)}"></label>
+          <label>Locatie<input id="f-loc" type="text" value="${esc(me.location)}"></label>
+          <label>Over jou<textarea id="f-about" rows="4">${esc(me.about)}</textarea></label>
+          <label>Vaardigheden (komma-gescheiden)<input id="f-skills" type="text" value="${esc(me.skills.join(', '))}"></label>
+          <label class="check"><input id="f-otw" type="checkbox" ${me.openToWork ? 'checked' : ''}> Open voor werk</label>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-ghost" id="modal-cancel">Annuleren</button>
+          <button class="btn btn-primary" id="modal-save">Opslaan</button>
+        </div>
+      </div>`;
+    document.body.appendChild(wrap);
+
+    const close = () => wrap.remove();
+    $('#modal-close', wrap).onclick = close;
+    $('#modal-cancel', wrap).onclick = close;
+    wrap.addEventListener('click', (e) => { if (e.target === wrap) close(); });
+    $('#modal-save', wrap).onclick = () => {
+      const skills = $('#f-skills', wrap).value.split(',').map((s) => s.trim()).filter(Boolean);
+      S.updateProfile({
+        name: $('#f-name', wrap).value.trim() || 'Jij',
+        headline: $('#f-head', wrap).value.trim(),
+        org: $('#f-org', wrap).value.trim(),
+        location: $('#f-loc', wrap).value.trim() || 'Nederland',
+        about: $('#f-about', wrap).value.trim(),
+        skills,
+        openToWork: $('#f-otw', wrap).checked,
+      });
+      close();
+    };
+  }
+
+  // ---------- Globale event-afhandeling (event delegation) ----------
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-like],[data-del],[data-connect],[data-apply],[data-going],[data-focus-comment],#composer-post,#edit-profile');
+    if (!t) return;
+
+    if (t.id === 'composer-post') {
+      const text = $('#composer-text').value;
+      if (!text.trim()) { $('#composer-text').focus(); return; }
+      const tags = ($('#composer-tags').value || '').split(',').map((s) => s.trim()).filter(Boolean);
+      S.addPost(text, tags);
+      return;
+    }
+    if (t.id === 'edit-profile') { openEditModal(); return; }
+    if (t.dataset.like) { S.toggleLike(t.dataset.like); return; }
+    if (t.dataset.del) {
+      if (confirm('Dit bericht verwijderen?')) S.deletePost(t.dataset.del);
+      return;
+    }
+    if (t.dataset.connect) { S.toggleConnection(t.dataset.connect); return; }
+    if (t.dataset.apply) { S.toggleJobApplied(t.dataset.apply); return; }
+    if (t.dataset.going) { S.toggleEventGoing(t.dataset.going); return; }
+    if (t.dataset.focusComment) {
+      const input = document.querySelector(`.comment-input[data-comment="${t.dataset.focusComment}"]`);
+      if (input) input.focus();
+    }
+  });
+
+  // Reacties plaatsen met Enter.
+  document.addEventListener('keydown', (e) => {
+    const inp = e.target.closest('.comment-input');
+    if (inp && e.key === 'Enter') {
+      e.preventDefault();
+      const text = inp.value;
+      if (text.trim()) S.addComment(inp.dataset.comment, text);
+    }
+  });
+
+  // Composer-textarea laten meegroeien.
+  document.addEventListener('input', (e) => {
+    if (e.target.id === 'composer-text') {
+      e.target.style.height = 'auto';
+      e.target.style.height = Math.min(e.target.scrollHeight, 220) + 'px';
+    }
+  });
+
+  // ---------- Opstarten ----------
+  S.subscribe(render);
+  window.addEventListener('hashchange', render);
+  document.addEventListener('DOMContentLoaded', render);
+  // Voor het geval DOMContentLoaded al voorbij is:
+  if (document.readyState !== 'loading') render();
+
+  // Reset-knop in de footer.
+  window.ImpactHubReset = function () {
+    if (confirm('Alle voorbeeld-data terugzetten naar het begin? Jouw wijzigingen gaan verloren.')) {
+      S.reset();
+    }
+  };
+})();
+
+</script>
+</body>
+</html>
