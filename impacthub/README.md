@@ -4,6 +4,16 @@
 
 Dit is een **werkend prototype**: een klikbare web-app die volledig in de browser draait. Er is geen server, login of database nodig. Alle wijzigingen (posts, likes, connecties, je profiel) worden lokaal bewaard in je browser via `localStorage`.
 
+## Schermafbeeldingen
+
+| Home / tijdlijn | Netwerk | Profiel |
+| --- | --- | --- |
+| ![Home](screenshots/01-home.png) | ![Netwerk](screenshots/02-netwerk.png) | ![Profiel](screenshots/05-profiel.png) |
+
+| Vacatures | Events | Mobiel |
+| --- | --- | --- |
+| ![Vacatures](screenshots/03-vacatures.png) | ![Events](screenshots/04-events.png) | ![Mobiel](screenshots/06-mobiel-home.png) |
+
 ## Openen
 
 Twee manieren:
